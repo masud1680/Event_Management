@@ -1,0 +1,147 @@
+{% extends "base.html" %} 
+
+{% load static %}
+{%block content %}
+
+<!--show message section-->
+
+  <div class="mx-auto my-4 rounded-md">
+    {% for message in messages %}
+
+    <div
+      class="mx-auto px-3 py-1 rounded-md flex justify-center items-center text-amber-50 {% if message.tags == 'success' %} bg-green-400 {% endif %}"
+    >
+      {{message}}
+    </div>
+
+    {% endfor %}
+  </div>
+
+
+<div class="grid sm:grid-cols-1 md:grid-cols-2 mb-20">
+
+<!--Category select box-->
+
+<div>
+
+  <form method="POST" action="{% url 'search-with-category' %}" class="max-w-xl mx-auto mt-6 p-4 bg-white shadow rounded-lg">
+  
+  {% csrf_token %}
+    <!-- Category Dropdown -->
+  <label for="id" class="block mb-2 text-sm font-medium text-gray-700">Select Category</label>
+  <select id="id" name="id"
+    class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none mb-4">
+    <option value="">-- All Categories --</option>
+    {% for EVcat in EVcategories %}
+      <option class="text-black " value="{{ EVcat.category.id }}"> {{ EVcat.category.name }}</option>
+    {% endfor %}
+  </select>
+
+
+  <!-- Submit Button -->
+  <button type="submit"
+    class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+    Filter Events
+  </button>
+</form>
+
+
+</div>
+
+
+
+
+  <!-- Date Range search box-->
+
+  <div >
+
+     <form method="POST" action="{% url 'search-with-date-range' %}" class=" max-w-xl mx-auto mt-6 p-4 bg-white shadow rounded-lg">
+{% csrf_token %}
+<div class="grid grid-cols-2 gap-4">
+
+  <div>
+
+    <!-- Start Date -->
+    <label for="start_date" class="block mb-2 text-sm font-medium text-gray-700">Start Date</label>
+    <input type="date" id="start_date" name="start_date"
+      class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none mb-4">
+  </div>
+
+  <div>
+
+    <!-- End Date -->
+    <label for="end_date" class="block mb-2 text-sm font-medium text-gray-700">End Date</label>
+    <input type="date" id="end_date" name="end_date"
+      class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none mb-4">
+  </div>
+
+
+</div>
+
+  <!-- Submit Button -->
+  <button type="submit"
+    class="w-full bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+    Filter Events
+  </button>
+</form>
+
+  </div>
+</div>
+
+<!--All Events-->
+<div class="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-2"> 
+{% for event in events %}
+
+<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <img class="rounded-t-lg" src="{% static 'images/event-category.jpg' %}" alt="" />
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{event.title}}</h5>
+        </a>
+       <div>
+        <b class="text-amber-100 text-bold">Date : {{event.date}} </b>
+        <p class="text-amber-50 text-2xs mt-2">Location : {{event.location}}</p>
+       </div>
+        <a href="{% url 'event-details' event.id%}" class=" mt-5 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Read more
+             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+{% endfor %}
+
+ </div>
+
+
+
+
+
+
+  
+ 
+
+
+      {% if events %}
+
+
+      
+      {% else %}
+
+      <div
+        class="mx-auto px-3 py-3 text-stone-50  text-4xl bg-green-300 rounded-md flex justify-center items-center"
+      >
+        <h1>Nothing here..........</h1>
+      </div>
+
+      {% endif %}
+
+  </div>
+
+
+    
+{% endblock content %}

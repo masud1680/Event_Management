@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Search | Results{% endblock title %}
+{% load static %}
+{% block content %}
+
+<div class="flex justify-center my-5">
+<a href="{% url 'manager-dashboard' %}">
+        <button type="button" class=" cursor-pointer text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-3xl rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-yellow-200">
+<svg class="font-extrabold" xmlns="http://www.w3.org/2000/svg" height="34" width="70" viewBox="0 0 640 640"><path fill="#FFD43B" d="M73.4 297.4C60.9 309.9 60.9 330.2 73.4 342.7L233.4 502.7C245.9 515.2 266.2 515.2 278.7 502.7C291.2 490.2 291.2 469.9 278.7 457.4L173.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L173.3 288L278.7 182.6C291.2 170.1 291.2 149.8 278.7 137.3C266.2 124.8 245.9 124.8 233.4 137.3L73.4 297.3z"/></svg>
+<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+</svg>
+<span class="sr-only">Icon description</span>
+</button>
+</a>
+</div>
+
+{% for message in messages %}
+
+
+    <div
+      class="mx-auto my-5 px-3 py-2 rounded-md flex justify-center items-center text-2xl text-amber-50 {% if message.tags == 'warning' %} bg-red-400 {% elif message.tags == 'success' %} bg-sky-400{% endif %}"
+    >
+      {{message}} {% if query %} [ {{query}} ]{% endif %}
+    </div>
+
+
+{% endfor %}
+
+
+<div class="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-2"> 
+{% for event in all_event %}
+
+<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <a href="#">
+        <img class="rounded-t-lg" src="{% static 'images/event-category.jpg' %}" alt="" />
+    </a>
+    <div class="p-5">
+        <a href="#">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{event.title}}</h5>
+        </a>
+       <div>
+        <b class="text-amber-100 text-bold">Date : {{event.date}} </b>
+        <p class="text-amber-50 text-2xs mt-2">Location : {{event.location}}</p>
+       </div>
+        <a href="{% url 'event-details' event.id%}" class=" mt-5 inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Read more
+             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+        </a>
+    </div>
+</div>
+
+{% endfor %}
+
+ </div>
+
+{% endblock content %}

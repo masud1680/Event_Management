@@ -1,0 +1,175 @@
+{% extends "base.html" %} {% block title %}Participant{% endblock title %} 
+{%load static %} 
+{% block content %} 
+
+
+    <div class="flex justify-center my-5">
+        {% for message in messages %}
+        
+        <div class="mx-auto px-5 py-2  rounded-md flex justify-center items-center text-2xl text-amber-50 {% if message.tags == 'success' %} bg-green-400 {% endif %} ">{{message}}</div>
+
+        {% endfor %}
+    </div>
+
+<!--Event Details-->
+
+
+<div
+  class="lg:max-w-6xl md:max-w-4xl bg-blue-400 text-2xl font-medium text-amber-50 text-center py-5 leading-none rounded-full mb-3"
+>
+ Event Details
+</div>
+
+<div class="flex flex-col-1 justify-center my-5">
+
+
+  <div class=" bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row lg:max-w-6xl md:max-w-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+  <a href="#" >
+    <img class="object-cover w-full rounded-t-lg sm:h-96 md:h-auto sm:w-full lg:w-full md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/event-category.jpg' %}" alt="">
+    <div class="flex flex-col justify-between p-4 leading-normal">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{events.title}}</h5>
+<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">        <b class="mb-3 font-normal text-gray-700 dark:text-amber-100 ">Date : {{events.date}} | Time : {{events.time}}</b>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-100">{{events.location}}</p></div>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{events.description}}</p>
+    </div>
+</a>
+
+
+
+
+
+  </div>
+
+
+</div>
+
+
+
+
+
+<!--Category Details-->
+
+
+<div
+  class="lg:max-w-6xl md:max-w-4xl bg-blue-400 text-2xl font-medium text-amber-50 text-center py-5 leading-none rounded-full mb-3"
+>
+ Category Details
+</div>
+
+<div class="flex flex-col-1 justify-center my-5">
+
+  <div class=" bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row lg:max-w-6xl md:max-w-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+  <a href="#" >
+    <img class="object-cover w-full rounded-t-lg sm:h-96 md:h-auto sm:w-full lg:w-full md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/event-category.jpg' %}" alt="">
+    <div class="flex flex-col justify-between p-4 leading-normal">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{events.category.name}}</h5>
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{events.category.description}}</p>
+    </div>
+</a>
+
+
+
+<!--Action BUttons-->
+
+<div class="grid grid-cols-2 gap-2  place-items-center my-5">
+  
+            <form action="{% url 'update-event' events.id %}" method="POST">
+              {% csrf_token %}
+              <button
+                type="submit"
+               class=" w-24 h-12 mt-5 inline-flex items-center px-5 py-4 text-2xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Edit
+              </button>
+            </form>
+
+
+
+
+            <form action="{% url 'delete-event' events.id %}" method="POST">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="w-28 h-12 mt-5 inline-flex items-center px-5 py-5 text-2xl font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Delete
+              </button>
+            </form>
+
+</div>
+
+
+  </div>
+
+
+</div>
+
+<!--Even Participant show list-->
+
+
+<div
+  class="grid grid-cols-1  gap-4 "
+>
+  <div
+    class=" p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-8 dark:bg-gray-800 dark:border-gray-700"
+  >
+    <div class="flex items-center justify-between mb-4">
+      <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">
+        Participants
+      </h5>
+      <a
+        href="#"
+        class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+      >
+        View all
+      </a>
+    </div>
+    <div class="flow-root">
+      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+        <li class="py-3 sm:py-4">
+          {% for participant in events.assigned_to.all %}
+          <div class="flex items-center">
+
+            <div class="shrink-0">
+              <img
+                class="w-8 h-8 rounded-full"
+                src="{% static 'images/profile.png' %}"
+                alt="Neil image"
+              />
+            </div>
+            
+            <div class=" flex-1 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 min-w-0 ms-4">
+              <p
+                class="text-sm font-medium text-gray-900 truncate dark:text-white"
+              >
+                {{participant.name}}
+              </p>
+              <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                {{participant.email}}
+              </p>
+            </div>
+
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-4 md:mt-6">
+              <a
+                href="{% url 'update-participant' participant.id%}"
+                class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >Update</a
+              >
+             
+              <a
+                href="{% url 'delete-participant' participant.id%}"
+                class="py-2 px-4 ms-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                >delete</a
+              >
+            </div>
+          </div>
+          {% endfor %}
+        </li>
+
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

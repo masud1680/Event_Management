@@ -1,0 +1,172 @@
+{% extends "base.html" %} {% block title %}Dashboard{% endblock title %} 
+{%block content %}
+
+
+    <!-- Total PARTICIPANT -->
+    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-white mb-4">TOTAL PARTICIPANTS</h3>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-white text-3xl font-semibold mb-1">
+            {{total_participant}}
+          </p>
+          <p class="text-white text-sm">1 last month</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-full">
+          <i
+            class="fa-regular fa-user fa-beat fa-xl"
+            style="color: #63e6be"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto my-4 rounded-md">
+    {% for message in messages %}
+
+    <div
+      class="mx-auto px-3 py-1 rounded-md flex justify-center items-center text-amber-50 {% if message.tags == 'success' %} bg-green-400 {% endif %}"
+    >
+      {{message}}
+    </div>
+
+    {% endfor %}
+  </div>
+  <!--bUTTONS-->
+
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select your listtype</label>
+    <select
+      id="tabs"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    >
+      <option>total events</option>
+      <option>today events</option>
+      <option>upcoming events</option>
+      <option>past events</option>
+    </select>
+  </div>
+  <ul
+    class="hidden text-sm font-medium text-center text-gray-500 rounded-lg shadow-sm sm:flex dark:divide-gray-700 dark:text-gray-400"
+  >
+    <li class="w-full focus-within:z-10">
+      <a
+        href="{% url 'manager-dashboard'%}?type=all"
+        class="inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 rounded-s-lg focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        >Total Events</a
+      >
+    </li>
+    <li class="w-full focus-within:z-10">
+      <a
+        href="{% url 'manager-dashboard'%}?type=today"
+        class="inline-block w-full p-4 text-gray-900 bg-gray-100 border-r border-gray-200 dark:border-gray-700 focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white"
+        aria-current="page"
+        >Today’s Events</a
+      >
+    </li>
+    <li class="w-full focus-within:z-10">
+      <a
+        href="{% url 'manager-dashboard'%}?type=upcoming"
+        class="inline-block w-full p-4 bg-white border-r border-gray-200 dark:border-gray-700 hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        >Upcoming Events</a
+      >
+    </li>
+    <li class="w-full focus-within:z-10">
+      <a
+        href="{% url 'manager-dashboard'%}?type=past"
+        class="inline-block w-full p-4 bg-white border-s-0 border-gray-200 dark:border-gray-700 rounded-e-lg hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+        >Past Events</a
+      >
+    </li>
+  </ul>
+
+  <!--Table section-->
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-red-500 dark:text-gray-400"
+    >
+      {% if events %}
+
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Events name</th>
+          <th scope="col" class="px-6 py-3">Location</th>
+          <th scope="col" class="px-6 py-3">Date & Time</th>
+          <th scope="col" class="px-6 py-3">Category</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for event in events %}
+
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{event.title}}
+          </th>
+
+          <td class="px-6 py-4">{{event.location}}</td>
+          <td class="px-6 py-4">{{event.date }} | {{event.time}}</td>
+          <td class="px-6 py-4 ">
+            <a class="cursor-pointer" href="{% url 'view-event-category' event.id %}">
+              {{event.category}}
+            </a>
+          </td>
+          <td class="px-6 py-4 gap-5">
+            <form action="{% url 'update-event' event.id %}" method="POST">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                Edit
+              </button>
+            </form>
+
+            <form action="{% url 'delete-event' event.id %}" method="POST">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                Delete
+              </button>
+            </form>
+            <form
+              action="{% url 'view-event-participants' event.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                Participant
+              </button>
+            </form>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+      {% else %}
+
+      <div
+        class="mx-auto px-3 py-1 bg-green-300 rounded-md flex justify-center items-center"
+      >
+        <h1>Nothing here..........</h1>
+      </div>
+
+      {% endif %}
+    </table>
+  </div>
+</div>
+{% endblock content %}
