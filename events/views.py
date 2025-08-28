@@ -329,3 +329,8 @@ def search_with_date_range(request):
     }
     return render(request, 'search_box.html', context)
             
+            
+
+def site_maintenance(request):
+    
+    return render(request, 'site_maintenance.html')

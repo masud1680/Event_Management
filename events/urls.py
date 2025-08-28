@@ -16,4 +16,5 @@ urlpatterns = [
     path('search-results/', views.search_text , name='search-results'),
     path('search-with-category/', views.search_with_category, name='search-with-category'),
     path('search-with-date-range/', views.search_with_date_range, name='search-with-date-range'),
+    path('site-maintenance/', views.site_maintenance, name='site-maintenance'),
 ]
