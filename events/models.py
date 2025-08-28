@@ -12,7 +12,7 @@ class ParticipantModel(models.Model):
 class EventModel(models.Model):
     
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=500, null=True, blank=True)
+    description = models.TextField( null=True, blank=True)
     date = models.DateField( )
     time = models.TimeField()
     location = models.CharField(max_length=200)
@@ -26,7 +26,7 @@ class EventModel(models.Model):
       
 class CategoryModel(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField(max_length=500, null=True, blank=True)
+    description = models.TextField( null=True, blank=True)
     
     def __str__(self):
          return self.name
