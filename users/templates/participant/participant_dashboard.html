@@ -173,14 +173,14 @@
                         href="{% url 'event-details' event.id%}"
                         class="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary"
                       >
-                        {{event.title}}
+                        {{event.title | truncatechars:50}}
                       </a>
                     </div>
                   </div>
                 </td>
                 <td class="p-3 pr-0 text-end">
                   <span class="font-semibold text-light-inverse text-md/normal"
-                    >{{event.category.name}}</span
+                    >{{event.category.name | truncatechars:20}}</span
                   >
                 </td>
                 <td class="p-3 pr-0 text-end">
@@ -305,14 +305,14 @@
                         href="{% url 'event-details' event.id%}"
                         class="mb-1 font-semibold transition-colors duration-200 ease-in-out text-lg/normal text-secondary-inverse hover:text-primary"
                       >
-                        {{event.title}}
+                        {{event.title | truncatechars:50}}
                       </a>
                     </div>
                   </div>
                 </td>
                 <td class="p-3 pr-0 text-end">
                   <span class="font-semibold text-light-inverse text-md/normal"
-                    >{{event.category.name}}</span
+                    >{{event.category.name | truncatechars:20 }}</span
                   >
                 </td>
                 <td class="p-3 pr-0 text-end">

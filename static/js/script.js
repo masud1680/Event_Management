@@ -51,6 +51,9 @@ allEventbtn.addEventListener("click", (e)=>{
 
   toggleBtn.addEventListener('click', () => {
     card.classList.toggle('hidden');
+    let userFullName = document.getElementById("user-full-name").innerText;
+    document.getElementById("userFullNameValue").innerText = userFullName;
+
   });
 
 
