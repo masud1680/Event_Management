@@ -69,7 +69,7 @@ def active_account(request, user_id, token):
             
     return redirect('sign-in')
     
-@user_passes_test(is_admin, login_url='no-parmission')
+# @user_passes_test(is_admin, login_url='no-parmission')
 def admin_dashboard(request):
     users = User.objects.all()
     
@@ -84,8 +84,8 @@ def admin_dashboard(request):
     
     return render(request, 'admin/dashboard.html', context)  
 
-@login_required(login_url='sign-in')
-@user_passes_test(is_admin, login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @user_passes_test(is_admin, login_url='no-parmission')
 def create_group(request):
     form = CreateGroupForm()
     
@@ -98,8 +98,8 @@ def create_group(request):
     return render(request, 'admin/create_group.html', {"form" : form, "gflag" : True})
 
 
-@login_required(login_url='sign-in')
-@user_passes_test(is_admin, login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @user_passes_test(is_admin, login_url='no-parmission')
 def update_group_data(request, group_id):
     
 
@@ -119,20 +119,20 @@ def update_group_data(request, group_id):
         }
     return render(request, 'admin/create_group.html', context)
 
-@login_required(login_url='sign-in')
-@user_passes_test(is_admin, login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @user_passes_test(is_admin, login_url='no-parmission')
 def view_group_update_list(request):
     groups = Group.objects.all()
     return render(request, 'admin/view_update_group_list.html', {"groups" : groups, "gflag" : True})
 
-@login_required(login_url='sign-in')
-@user_passes_test(is_admin, login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @user_passes_test(is_admin, login_url='no-parmission')
 def view_group(request):
     groups = Group.objects.all()
     return render(request, 'admin/view_group.html', {"groups" : groups, "gflag" : True})
 
-@login_required(login_url='sign-in')
-@user_passes_test(is_admin, login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @user_passes_test(is_admin, login_url='no-parmission')
 def change_role(request, user_id):
     user = User.objects.get(id = user_id)
     
@@ -152,13 +152,13 @@ def change_role(request, user_id):
 def check_user_id(user):
     return user.id 
 
-@login_required(login_url='sign-in') 
-@user_passes_test(is_participant, login_url='no-parmission')
+# @login_required(login_url='sign-in') 
+# @user_passes_test(is_participant, login_url='no-parmission')
 def participant_dashboard(request, ):
     
     user_id = check_user_id(request.user)
     
-    my_events = EventModel.objects.filter(participant = user_id)
+    my_events = EventModel.objects.filter(Participant = user_id)
 
     all_events = EventModel.objects.all()
     
@@ -171,8 +171,8 @@ def participant_dashboard(request, ):
     return render(request, 'participant/participant_dashboard.html', context)
 
 
-@login_required(login_url='sign-in')
-@permission_required("events.view_participantmodel", login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @permission_required("events.view_participantmodel", login_url='no-parmission')
 def all_participant(request):
     
     events = EventModel.objects.prefetch_related('participant').all()
@@ -189,8 +189,8 @@ def all_participant(request):
     return render(request, 'admin/all_participant.html', context)
 
 
-@login_required(login_url='sign-in')
-@permission_required("events.add_participantmodel", login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @permission_required("events.add_participantmodel", login_url='no-parmission')
 def create_participant(request):
     participant_form = CustomRegistrationForm()
     
@@ -213,8 +213,8 @@ def create_participant(request):
     return render(request, 'admin/create_participant.html', context)
 
 
-@login_required(login_url='sign-in')
-@permission_required("events.change_participantmodel", login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @permission_required("events.change_participantmodel", login_url='no-parmission')
 def update_participant(request, id):
     participant = get_object_or_404(User, id = id)
     
@@ -238,8 +238,8 @@ def update_participant(request, id):
     }
     return render(request, 'admin/update_participant.html', context)    
 
-@login_required(login_url='sign-in')
-@permission_required("events.delete_participantmodel", login_url='no-parmission')
+# @login_required(login_url='sign-in')
+# @permission_required("events.delete_participantmodel", login_url='no-parmission')
 def delete_participant(request, id):
     
     participant = User.objects.get(id = id)
@@ -250,7 +250,7 @@ def delete_participant(request, id):
     return redirect('all-participant')
 
 
-@login_required(login_url='sign-in')
+# @login_required(login_url='sign-in')
 def redirect_dashboard(request):
     
     if is_admin(request.user):

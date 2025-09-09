@@ -1,5 +1,7 @@
-{% extends "base.html" %} {% load static %} {% block title %}Participant |
-Dashboard{% endblock title %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+{% block title %}Participant | Dashboard{% endblock title %} 
+{% block content %}
 <link rel="stylesheet" href="{% static 'src/style.css' %}" />
 <!-- connect script.js -->
 <script src="{% static 'js/script.js' %}"></script>
@@ -347,11 +349,10 @@ Dashboard{% endblock title %} {% block content %}
                     >{{event.date}}</span
                   >
                 </td>
-                <td class="p-3 pr-0 text-end">
-                 
 
-        
-                                  <a href="{% url 'register-event' user.id event.id %}">
+                  <td class="p-3 pr-0 text-end">
+
+                  <a href="{% url 'register-event' user.id event.id %}">
                     <button
                       class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
                     >
@@ -362,8 +363,6 @@ Dashboard{% endblock title %} {% block content %}
                       </span>
                     </button>
                   </a>
-
-                  
 
                 </td>
 

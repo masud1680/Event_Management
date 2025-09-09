@@ -17,6 +17,124 @@
     {% endfor %}
   </div>
 
+            <!-- Stats Grid  -->
+  <div class="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-8">
+    <!-- TOTAL EVENT  -->
+    <a href="{% url 'manager-dashboard'%}?type=all">
+
+      <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-white mb-4">ALL EVENTS</h3>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-white text-3xl font-semibold mb-1">
+            {{count.event}}
+          </p>
+          <p class="text-white text-sm">1 last month</p>
+        </div>
+        <div class="bg-green-100 p-3 rounded-full">
+          <i
+            class="fa-regular fa-calendar-check fa-bounce fa-xl"
+            style="color: #74c0fc"
+          ></i>
+        </div>
+      </div>
+    </div>
+
+
+    </a>
+    <!-- TODAY EVENTS -->
+   <a href="{% url 'manager-dashboard'%}?type=today">
+     <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-white mb-4">TODAY EVENTS</h3>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-white text-3xl font-semibold mb-1">
+            {{count.today}}
+          </p>
+          <p class="text-white text-sm">1 last month</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-full">
+          <i
+            class="fa-solid fa-calendar-day fa-beat-fade fa-xl"
+            style="color: #d85ee8"
+          ></i>
+        </div>
+      </div>
+    </div>
+   </a>
+    <!-- UPCOMING EVENTS -->
+   <a href="{% url 'manager-dashboard'%}?type=upcoming">
+     <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-white mb-4">UPCOMING EVENTS</h3>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-white text-3xl font-semibold mb-1">
+            {{count.upcoming}}
+          </p>
+          <p class="text-white text-sm">1 last month</p>
+        </div>
+        <div class="bg-yellow-100 p-3 rounded-full">
+          <i
+            class="fa-regular fa-clock fa-shake fa-xl"
+            style="color: #ffd43b"
+          ></i>
+        </div>
+      </div>
+    </div>
+   </a>
+
+    <!--PAST EVENTS-->
+    <a href="{% url 'manager-dashboard'%}?type=past">
+      <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-white mb-4">PAST EVENTS</h3>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-white text-3xl font-semibold mb-1">
+            {{count.past}}
+          </p>
+          <p class="text-white text-sm">1 last month</p>
+        </div>
+        <div class="bg-purple-100 p-3 rounded-full">
+          <i
+            class="fa-solid fa-clock-rotate-left fa-spin fa-spin-reverse fa-xl"
+            style="color: #b197fc"
+          ></i>
+        </div>
+      </div>
+    </div>
+    </a>
+    
+
+    <!-- Total PARTICIPANT -->
+    <a href="{% url 'all-participant' %}">
+
+      <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium text-white mb-4">TOTAL PARTICIPANTS</h3>
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-white text-3xl font-semibold mb-1">
+            {{count.participants}}
+          </p>
+          <p class="text-white text-sm">1 last month</p>
+        </div>
+        <div class="bg-blue-100 p-4 rounded-full">
+          <i
+            class="fa-regular fa-user fa-beat fa-xl"
+            style="color: #63e6be"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    </a>
+
+
+      </div>
+
+
+
+      
 
 <div class="grid sm:grid-cols-1 md:grid-cols-2 mb-20">
 
@@ -98,7 +216,7 @@
     </a>
     <div class="p-5">
         <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{event.title}}</h5>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{event.title | truncatechars:30}}</h5>
         </a>
        <div>
         <b class="text-amber-100 text-bold">Date : {{event.date}} </b>
