@@ -43,20 +43,20 @@ class StyledFormMixin:
     
                 
  
-class EventForm(forms.Form):
-    title = forms.CharField(max_length=100, label="Event Name")
-    description = forms.CharField(widget = forms.Textarea,  label ="Event Description")
-    location = forms.CharField(max_length=100)
-    date = forms.DateInput()
-    time = forms.TimeInput()
-    assigned_to = forms.MultipleChoiceField(widget= forms.CheckboxSelectMultiple, choices=[])
+# class EventForm(forms.Form):
+#     title = forms.CharField(max_length=100, label="Event Name")
+#     description = forms.CharField(widget = forms.Textarea,  label ="Event Description")
+#     location = forms.CharField(max_length=100)
+#     date = forms.DateInput()
+#     time = forms.TimeInput()
+#     assigned_to = forms.MultipleChoiceField(widget= forms.CheckboxSelectMultiple, choices=[])
 
-    def __init__(self, *args, **kwargs):
-        # print(args, kwargs)
-        participants = kwargs.pop("participants", [])
-        super().__init__(*args, **kwargs)
-        self.fields['assigned_to'].choices = [
-            (par.id, par.name) for par in participants]
+#     def __init__(self, *args, **kwargs):
+#         # print(args, kwargs)
+#         participants = kwargs.pop("participants", [])
+#         super().__init__(*args, **kwargs)
+#         self.fields['assigned_to'].choices = [
+#             (par.id, par.name) for par in participants]
     
                
 # Model form
@@ -64,12 +64,12 @@ class EventForm(forms.Form):
 class EventModelForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = EventModel
-        fields = ['title', 'date', 'time', 'location', 'assigned_to', 'description' ]
+        fields = ['title', 'date', 'time', 'location',  'description' ]
         
         widgets = {
             'date': forms.SelectDateWidget(),
             'time': forms.TimeInput(attrs={'type': 'time'}),
-            'assigned_to': forms.CheckboxSelectMultiple,
+            # 'assigned_to': forms.CheckboxSelectMultiple,
         }
 
     """ Widget using mixins """

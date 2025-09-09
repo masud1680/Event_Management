@@ -17,7 +17,7 @@ class EventModel(models.Model):
     time = models.TimeField()
     location = models.CharField(max_length=200)
     category = models.ForeignKey("CategoryModel", related_name="eventC", on_delete=models.CASCADE , default=1)
-    assigned_to = models.ManyToManyField(ParticipantModel, related_name="eventP" )
+    # assigned_to = models.ManyToManyField(ParticipantModel, related_name="eventP" )
 
     def __str__(self):
         return self.name
