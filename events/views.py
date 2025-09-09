@@ -6,6 +6,8 @@ from django.db.models import Q, Count, Max, Min, Avg
 import datetime
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 def is_organizer(user):
@@ -186,9 +188,9 @@ def all_participant(request):
     
     context = {
         "events" : events,
-        "count" : count
+        "count" : count,
     }
-    
+    print("working........")
     return render(request, 'all_participant.html', context)
 
 def view_event_category(request, id):
@@ -298,10 +300,19 @@ def register_event(request, user_id, event_id):
         event = EventModel.objects.get(id = event_id)
         event.Participant.add(user)
         messages.success(request, "Event {{event.title}} added Successfull.")
-        
-        
-        
-            
+        send_rEmail(user,event)      
     return redirect('redirect-dashboard')
-    
+
+# send_email_when_register_evant
+
+def send_rEmail(user,event):
+        subject = "Evant Registration."
+        message = f"Hi, {user.first_name} {user.last_name}. \n\n You are registered  : \n {event.title} event successfull. \n\n Thank You."
+        recipient_list = [user.email]
+        
+        
+        try:
+            send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list)
+        except Exception as e:
+            print(f"Failed to send {user.email} : {str(e)}")    
     
