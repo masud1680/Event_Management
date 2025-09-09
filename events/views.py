@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect,HttpResponse, get_object_or_404
-from events.models import EventModel, ParticipantModel, CategoryModel
-from events.forms import EventForm, EventModelForm, participentModelForm, categoryModelForm
+from events.models import EventModel,  CategoryModel
+from events.forms import  EventModelForm,  categoryModelForm
 from datetime import date, time
 from django.db.models import Q, Count, Max, Min, Avg
 import datetime
 from django.contrib import messages
+from django.contrib.auth.models import User
+
 
 def is_organizer(user):
     return user.groups.filter(name="Organizer").exists()

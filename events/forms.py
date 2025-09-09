@@ -1,5 +1,5 @@
 from django import forms
-from events.models import EventModel, ParticipantModel, CategoryModel
+from events.models import EventModel, CategoryModel
 
 
 
@@ -92,15 +92,15 @@ class categoryModelForm(StyledFormMixin, forms.ModelForm):
         super().__init__(*arg, **kwarg)
         self.apply_styled_widgets()
         
-class participentModelForm(StyledFormMixin, forms.ModelForm):
-    class Meta:
-        model = ParticipantModel
-        fields = ['name', 'email']
+# class participentModelForm(StyledFormMixin, forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ['name', 'email']
     
-        """ Widget using mixins """
+#         """ Widget using mixins """
 
-    def __init__(self, *arg, **kwarg):
-        super().__init__(*arg, **kwarg)
-        self.apply_styled_widgets()
+#     def __init__(self, *arg, **kwarg):
+#         super().__init__(*arg, **kwarg)
+#         self.apply_styled_widgets()
     
     
