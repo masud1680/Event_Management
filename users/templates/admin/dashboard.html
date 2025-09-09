@@ -1,0 +1,289 @@
+{% extends "base.html" %} 
+{% block title %}Admin | Dashboard{% endblock title %} 
+{% block content %} 
+{% load static %} 
+
+
+<div >
+  <!-- Stats Grid  -->
+  <div class="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 my-8 ">
+    <!-- TOTAL PARTICIPANTS  -->
+    <a href="{% url 'all-participant'%}">
+      <div
+        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+      >
+        <h3 class="text-sm font-medium dark:text-white mb-4">
+          ALL PARTICIPANTS
+        </h3>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="dark:text-white text-3xl font-semibold mb-1">
+              {{count.participants}}
+            </p>
+            <p class="dark:text-white text-sm">1 last month</p>
+          </div>
+          <div class="bg-green-50 p-4 rounded-full">
+<i class="fa-solid fa-circle-user fa-beat-fade fa-2xl" style="color: #FFD43B;"></i>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!-- TODAY PARTICIPANTS -->
+    <a href="{% url 'manager-dashboard'%}?type=today">
+      <div
+        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+      >
+        <h3 class="text-sm font-medium dark:text-white mb-4">
+          TODAY PARTICIPANTS
+        </h3>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="dark:text-white text-3xl font-semibold mb-1">
+              {{count.today}}
+            </p>
+            <p class="dark:text-white text-sm">1 last month</p>
+          </div>
+          <div class="bg-blue-100 p-4 rounded-full">
+            <i
+              class="fa-solid fa-calendar-day fa-beat-fade fa-xl"
+              style="color: #d85ee8"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!--UPCOMING EVENTS-->
+    <a href="{% url 'manager-dashboard'%}?type=upcoming">
+      <div
+        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+      >
+        <h3 class="text-sm font-medium dark:text-white mb-4">
+          UPCOMMING EVENTS
+        </h3>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="dark:text-white text-3xl font-semibold mb-1">
+              {{count.upcoming}}
+            </p>
+            <p class="dark:text-white text-sm">1 last month</p>
+          </div>
+          <div class="bg-purple-100 p-4 rounded-full">
+            <i
+              class="fa-solid fa-clock-rotate-left fa-spin fa-spin-reverse fa-xl"
+              style="color: #b197fc"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!-- MANAGER -->
+    <a href="{% url 'site-maintenance' %}?type=upcoming">
+      <div
+        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+      >
+        <h3 class="text-sm font-medium dark:text-white mb-4">MANAGER</h3>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="dark:text-white text-3xl font-semibold mb-1">
+              1
+            </p>
+            <p class="dark:text-white text-sm">1 last month</p>
+          </div>
+          <div class="bg-blue-100 p-4 rounded-full">
+            <i
+              class="fa-regular fa-circle-user fa-fade fa-2xl"
+              style="color: #63e6be"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Admin -->
+    <a href="{% url 'site-maintenance'  %}">
+      <div
+        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+      >
+        <h3 class="text-sm font-medium dark:text-white mb-4">ADMIN</h3>
+        <div class="flex justify-between items-start">
+          <div>
+            <p class="dark:text-white text-3xl font-semibold mb-1">
+              1
+            </p>
+            <p class="dark:text-white text-sm">1 last month</p>
+          </div>
+          <div class="bg-blue-100 p-4 rounded-full">
+            <i
+              class="fa-regular fa-user fa-beat fa-xl"
+              style="color: #63e6be"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!--User show list-->
+
+  <div class="relative overflow-x-auto">
+    <table
+      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+    >
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3">Number</th>
+          <th scope="col" class="px-6 py-3">Participants Name</th>
+          <th scope="col" class="px-6 py-3">Email</th>
+          <th scope="col" class="px-6 py-3">User Id</th>
+          <th scope="col" class="px-6 py-3">Role</th>
+          <th scope="col" class="px-6 py-3">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+        >
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {{forloop.counter}}
+          </th>
+          <th
+            scope="row"
+            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+          >
+            {% if user.first_name %} {{user.first_name}} {{user.last_name}} 
+            {% else %} 
+            {{user.username}} 
+            {% endif %}
+          </th>
+          <td class="px-6 py-4">{{user.email}}</td>
+          <td class="px-6 py-4">{{user.id}}</td>
+          <td class="px-6 py-4">
+            {{user.groups.first.name | default:"No Group Assigned"}}
+          </td>
+
+          <td
+            class="inline-flex items-center justify-center px-5 py-3 my-2 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            <!-- Button to open popup -->
+            <button
+              onclick="openPopup(this)"
+              data-username="{{user.username}}"
+              data-user-id="{{user.id}}"
+              class="cursor-pointer"
+            >
+              <i
+                class="fa-solid fa-arrow-right fa-fade fa-2xl"
+                style="color: #ffd43b"
+              ></i>
+            </button>
+          </td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Overlay -->
+  <div
+    id="overlay"
+    class="fixed inset-0 bg-black/50 hidden items-center justify-center"
+  >
+    <!-- Popup -->
+    <div class="bg-white rounded-2xl shadow-lg w-80 p-6 text-center">
+      <h2 class="text-xl font-semibold mb-3"><span id="popupUserName" class="font-bold"></span></h2>
+      <p class="text-gray-600">
+        User ID: <span id="popupUserId" class="font-bold"></span>
+      </p>
+
+      <a id="ChangeRoleLink" href="#">
+        <button
+          class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+        >
+          <span
+            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent"
+          >
+            Change Role
+          </span>
+        </button>
+      </a>
+
+      <a id="UpdateParticipantLink" href="#">
+        <button
+          class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-teal-300 to-lime-300 group-hover:from-teal-300 group-hover:to-lime-300 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-lime-800"
+        >
+          <span
+            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent"
+          >
+            Update Participant
+          </span>
+        </button>
+      </a>
+
+      <a id="DeleteParticipantLink" href="#">
+        <button
+          class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+        >
+          <span
+            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent"
+          >
+            Delete Participant
+          </span>
+        </button>
+      </a>
+
+      <button
+        onclick="closePopup()"
+        class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-red-200 via-red-300 to-yellow-200 group-hover:from-red-200 group-hover:via-red-300 group-hover:to-yellow-200 dark:text-white dark:hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400"
+      >
+        <span
+          class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent"
+        >
+          Close
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    function openPopup(button) {
+      // Get user ID from clicked button
+      let userId = button.getAttribute("data-user-id");
+      let username = button.getAttribute("data-username");
+
+      // Update Django link
+      let UpdateParticipantLink = document.getElementById(
+        "UpdateParticipantLink"
+      );
+      UpdateParticipantLink.href = `/users/update-participant/${userId}`;
+
+      let ChangeRoleLink = document.getElementById("ChangeRoleLink");
+      ChangeRoleLink.href = `/users/change-role/${userId}`;
+      
+      let DeleteParticipantLink = document.getElementById("DeleteParticipantLink");
+      DeleteParticipantLink.href = `/users/delete-participant/${userId}`;
+
+      // Set it inside popup span
+      document.getElementById("popupUserName").innerText = username;
+      document.getElementById("popupUserId").innerText = userId;
+
+      // Show overlay
+      document.getElementById("overlay").classList.remove("hidden");
+      document.getElementById("overlay").classList.add("flex");
+    }
+
+    function closePopup() {
+      document.getElementById("overlay").classList.add("hidden");
+      document.getElementById("overlay").classList.remove("flex");
+    }
+  </script>
+
+  {% endblock content %}
+</div>

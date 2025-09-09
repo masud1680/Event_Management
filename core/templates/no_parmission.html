@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>403 – No Permission</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark" />
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-700 antialiased dark:bg-gray-950 dark:text-gray-200">
+  <main class="flex min-h-screen items-center justify-center p-6">
+    <section class="w-full max-w-2xl">
+      <div class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+        <!-- Accent ring -->
+        <div class="pointer-events-none absolute -inset-px rounded-2xl ring-1 ring-inset ring-gray-200/60 dark:ring-white/10"></div>
+
+        <!-- Icon -->
+        <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 dark:bg-red-950/40">
+          <!-- Lock Closed Icon (Heroicons outline, inline SVG) -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M16.5 10.5V7.5a4.5 4.5 0 10-9 0v3m11.25 0h-13.5a1.5 1.5 0 00-1.5 1.5v6a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-6a1.5 1.5 0 00-1.5-1.5z" />
+          </svg>
+        </div>
+
+        <!-- Headings -->
+        <h1 class="mt-6 text-center text-2xl font-semibold tracking-tight sm:text-3xl">
+          No Permission to Access This URL
+        </h1>
+        <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
+          Error code: <span class="font-mono font-medium text-gray-800 dark:text-gray-200">403 Forbidden</span>
+        </p>
+
+        <!-- Requested URL -->
+        <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-4 font-mono text-sm text-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-100">
+          <span class="block text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">Requested URL</span>
+          <span id="req-url" class="break-all"></span>
+        </div>
+
+        <!-- Suggestions -->
+        <ul class="mt-6 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+          <li>• You might not have the required role or permissions.</li>
+          <li>• If you recently logged in, try refreshing this page.</li>
+          <li>• Contact the administrator if you believe this is an error.</li>
+        </ul>
+
+        <!-- Actions -->
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <button type="button"
+                  id="go-back"
+                  class="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium ring-1 ring-inset ring-gray-300 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-gray-700 dark:hover:bg-gray-800">
+            ← Go Back
+          </button>
+
+          <a href="/"
+             class="inline-flex items-center justify-center rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:bg-white dark:text-gray-900">
+            ⟵ Home
+          </a>
+
+          <button type="button"
+                  id="copy-url"
+                  class="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium ring-1 ring-inset ring-gray-300 transition hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-gray-700 dark:hover:bg-gray-800">
+            Copy URL
+          </button>
+        </div>
+
+        <!-- Small footer -->
+        <p class="mt-6 text-center text-xs text-gray-500 dark:text-gray-500">
+          If you need access, please request permission from your administrator.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Safely display the current URL
+    (function () {
+      const urlEl = document.getElementById('req-url');
+      if (urlEl) urlEl.textContent = window.location.href;
+
+      // Go back handler
+      const backBtn = document.getElementById('go-back');
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          if (window.history.length > 1) {
+            window.history.back();
+          } else {
+            window.location.href = '/';
+          }
+        });
+      }
+
+      // Copy URL handler
+      const copyBtn = document.getElementById('copy-url');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(window.location.href);
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => (copyBtn.textContent = 'Copy URL'), 1500);
+          } catch {
+            copyBtn.textContent = 'Failed';
+            setTimeout(() => (copyBtn.textContent = 'Copy URL'), 1500);
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+
+
+
+{% endblock content %}

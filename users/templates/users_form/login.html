@@ -1,0 +1,30 @@
+{% extends "form_base.html" %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+    <div class="w-1/2 mx-auto my-10">
+        <!--Show Messages-->
+        <div>
+            <ul>
+                {% for message in messages %}
+                    <li class="px-5 py-3 rounded-md text-white text-2xl {% if message.tags == 'success' %}bg-green-400 {% else %} bg-red-500 {% endif %} ">{{message}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!--Show Login Form-->
+
+        <div>
+            <form  method='POST'>
+                {% csrf_token %}
+
+                {{form}}
+
+                <button type="submit" class="my-5 rounded-md py-2 px-5 bg-sky-500 hover:bg-sky-800 text-white text-xl">Sign In</button>
+                <a href="{% url 'sign-up' %}" class="mx-3 my-5 rounded-md py-2 px-5 bg-amber-300 hover:bg-amber-200 text-white text-xl">Sign Up</a>
+                <a href="{% url 'password_reset' %}" class="mx-3 my-5 rounded-md py-2 px-5 bg-red-600 hover:bg-red-400 text-white text-xl">Forget Password</a>
+            </form>
+        </div>
+
+    </div>
+{% endblock content %}

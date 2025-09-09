@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+<main class="w-2/3 mx-auto mt-8">
+      <h2 class="dark:text-white text-2xl font-bold mb-4">Groups and Permissions</h2>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse border  border-gray-300">
+          <thead>
+            <tr class="rounded-md dark:text-white dark:bg-gray-800 bg-gray-100">
+              <th class="border  dark:border-gray-700 border-gray-300 px-4 py-2">Group Name</th>
+              <th class="border dark:border-gray-700 border-gray-300 px-4 py-2">Permissions</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for group in groups %}
+            <!-- Example group data -->
+            <tr class=" dark:text-white dark:odd:bg-gray-700 odd:bg-white even:bg-gray-50">
+              <td class="border dark:bg-gray-700 border-gray-300 px-4 py-2 font-medium">
+                {{group.name}}
+              </td>
+              <td class="border dark:bg-gray-700 border-gray-300 px-4 py-2">
+                <ul class="list-disc list-inside">
+                  {% for permission in group.permissions.all %}
+                  
+                  <li>{{permission.name}}|{{permission.codename}}</li>
+                  {% empty%}
+                  <span class="  rounded-md bg-red-400 px-5 py-2 text-white text-bold">No permission assigned.</span>
+                  {% endfor %}
+                  
+                </ul>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+{% endblock content %}

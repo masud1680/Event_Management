@@ -6,6 +6,8 @@ from django.db.models import Q, Count, Max, Min, Avg
 import datetime
 from django.contrib import messages
 
+def is_organizer(user):
+    return user.groups.filter(name="Organizer").exists()
 
 # Create your views here.
 

@@ -19,14 +19,18 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include
+from core.views import home,site_maintenance, no_parmission
 if settings.DEBUG:
     import debug_toolbar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    
-    path('', include('events.urls')),
+    path('', home , name="home"),
+    path('site-maintenance/', site_maintenance , name="site-maintenance"),
+    path('no-parmission/', no_parmission, name="no-parmission"),
+    path('events/', include('events.urls')),
+    path('users/', include('users.urls')),
      path('__debug__/', include(debug_toolbar.urls)),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

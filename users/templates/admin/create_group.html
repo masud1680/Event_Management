@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Create | Group{% endblock title %}
+
+{% block content %}
+
+
+<div class=" mx-auto w-1/2 my-10">
+            <!--Show Messages-->
+        <div>
+            <ul>
+                {% for message in messages %}
+                    <li class="px-5 py-3 rounded-md text-white text-2xl {% if message.tags == 'success' %}bg-green-400 {% else %} bg-red-500 {% endif %} ">{{message}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        
+    <form action="" method='POST'>
+        {% csrf_token %}
+        {{form}}
+
+        <button type="submit" class="px-5 py-2 rounded-md text-bold bg-sky-400 text-white my-5">Submit</button>
+    </form>
+
+</div>
+
+{% endblock content %}
+
+
