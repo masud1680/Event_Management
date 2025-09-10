@@ -169,4 +169,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
-FONTEND_URL = 'https://*.onrender.com'
+FONTEND_URL = 'https://event-management-2-hwd7.onrender.com'
