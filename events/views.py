@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 
 
 def is_organizer(user):
@@ -15,6 +16,8 @@ def is_organizer(user):
 
 def is_admin(user):
     return user.groups.filter(name="Admin").exists()
+def is_participant(user):
+    return user.groups.filter(name="Participants").exists()
 
 # Create your views here.
 
@@ -35,7 +38,9 @@ def all_count():
     count = {"event" : counts['total_event'],"today" : counts['today_event'],"upcoming" : counts['upcoming_event'],"past" : counts['past_event'],"participants" : counts['total_participant'] }
     return count
 
-def manager_dashboard(request):
+
+@permission_required("events.view_eventmodel", login_url='no-parmission')
+def events_dashboard(request):
     
     count = all_count()
    
@@ -73,10 +78,10 @@ def manager_dashboard(request):
         "aeflag": aeflag,
     }
      
-    return render(request,'manager/manager_dashboard.html', context)
+    return render(request,'events_dashboard.html', context)
 
 
-
+@permission_required("events.add_eventmodel", login_url='no-parmission')
 def create_event(request):
     
     
@@ -114,7 +119,8 @@ def create_event(request):
     }
     
     return render(request, 'event_form.html', context)
-            
+
+@permission_required("events.change_eventmodel", login_url='no-parmission')            
 def update_event(request, id):
     event = get_object_or_404(EventModel,id = id)
     
@@ -153,6 +159,7 @@ def update_event(request, id):
     
     return render(request, 'event_update_form.html' , context)
 
+@permission_required("events.delete_eventmodel", login_url='no-parmission')   
 def delete_event(request, id):
     if request.method == 'POST':
         event = EventModel.objects.get(id = id)
@@ -178,7 +185,8 @@ def view_event_details(request, id):
     }
     return render(request, 'event_details.html', context)
 
-
+@login_required(login_url='sign-in')
+@permission_required("events.view_eventmodel", login_url='no-parmission')
 def all_participant(request):
     
     events = EventModel.objects.prefetch_related('Participant').all()
@@ -204,6 +212,7 @@ def all_participant(request):
     
     return render(request, 'all_participant.html', context)
 
+@permission_required("events.view_categorymodel", login_url='no-parmission')
 def view_event_category(request, id):
     events = EventModel.objects.select_related("category").get(id = id)
     
@@ -294,7 +303,8 @@ def search_with_date_range(request):
     }
     return render(request, 'search_box.html', context)
             
-            
+@login_required(login_url='sign-in') 
+@user_passes_test(is_participant, login_url='no-parmission')            
 def register_event(request, user_id, event_id):
     
     user = User.objects.get(id = user_id)

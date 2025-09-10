@@ -3,9 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.manager_dashboard, name='manager-dashboard'),
+    path('', views.events_dashboard, name='events-dashboard'),
     path('create-event/', views.create_event,  name="create-event"),
-   
     path('update-event/<int:id>', views.update_event, name='update-event'),
     path('delete-event/<int:id>', views.delete_event, name='delete-event'),
     path('event-details/<int:id>', views.view_event_details , name='event-details'),

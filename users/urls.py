@@ -1,5 +1,5 @@
 from django.urls import path
-from users.views import sign_up, sign_in, sign_out, active_account,admin_dashboard, create_group, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard
+from users.views import sign_up, sign_in, sign_out, active_account,admin_dashboard, create_group, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
 from django.contrib.auth import views as auth_views
 urlpatterns = [
     
@@ -33,6 +33,7 @@ urlpatterns = [
     path('update/<int:group_id>/group/', update_group_data, name='update-group-data'),
     path('change-role/<int:user_id>/', change_role, name='change-role'),
     path('participant/dashboard/', participant_dashboard, name='participant-dashboard'),
+    path('organizer/dashboard/', organizer_dashboard, name='organizer-dashboard'),
     path('create-participant/', create_participant, name='create-participant'),
     path('update-participant/<int:id>', update_participant, name='update-participant'),
     path('delete-participant/<int:id>', delete_participant, name='delete-participant'),

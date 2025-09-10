@@ -8,7 +8,7 @@
           <!-- Stats Grid  -->
   <div class="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-8">
     <!-- TOTAL EVENT  -->
-    <a href="{% url 'manager-dashboard'%}?type=all">
+    <a href="{% url 'organizer-dashboard'%}?type=all">
 
       <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
       <h3 class="text-sm font-medium dark:text-white mb-4">ALL EVENTS</h3>
@@ -31,7 +31,7 @@
 
     </a>
     <!-- TODAY EVENTS -->
-   <a href="{% url 'manager-dashboard'%}?type=today">
+   <a href="{% url 'organizer-dashboard'%}?type=today">
      <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
       <h3 class="text-sm font-medium dark:text-white mb-4">TODAY EVENTS</h3>
       <div class="flex justify-between items-start">
@@ -51,7 +51,7 @@
     </div>
    </a>
     <!-- UPCOMING EVENTS -->
-   <a href="{% url 'manager-dashboard'%}?type=upcoming">
+   <a href="{% url 'organizer-dashboard'%}?type=upcoming">
      <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
       <h3 class="text-sm font-medium dark:text-white mb-4">UPCOMING EVENTS</h3>
       <div class="flex justify-between items-start">
@@ -72,7 +72,7 @@
    </a>
 
     <!--PAST EVENTS-->
-    <a href="{% url 'manager-dashboard'%}?type=past">
+    <a href="{% url 'organizer-dashboard'%}?type=past">
       <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
       <h3 class="text-sm font-medium dark:text-white mb-4">PAST EVENTS</h3>
       <div class="flex justify-between items-start">

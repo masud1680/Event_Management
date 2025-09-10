@@ -96,24 +96,24 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # Postgres database connect to jango
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT')
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT')
+#     }
+# }
 
 # Online Onrender.com pg database connect
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default='postgresql://event_management_ty63_user:otANoSnJN449psZjGn5cvApGLnQYgyrL@dpg-d2oankmr433s738k03d0-a.oregon-postgres.render.com/event_management_ty63',
-#         conn_max_age=600
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('ONLINE_DB'),
+        conn_max_age=600
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

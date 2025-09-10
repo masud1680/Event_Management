@@ -4,16 +4,11 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.tokens import default_token_generator
-from events.views import all_count, is_organizer
+from events.views import all_count, is_organizer, is_admin, is_participant
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from events.models import EventModel
+import datetime
 
-
-def is_admin(user):
-    return user.groups.filter(name="Admin").exists()
-
-def is_participant(user):
-    return user.groups.filter(name="Participants").exists()
 
 # Create your views here.
 def sign_up(request):
@@ -69,7 +64,7 @@ def active_account(request, user_id, token):
             
     return redirect('sign-in')
     
-# @user_passes_test(is_admin, login_url='no-parmission')
+@user_passes_test(is_admin, login_url='no-parmission')
 def admin_dashboard(request):
     users = User.objects.all()
     
@@ -84,8 +79,8 @@ def admin_dashboard(request):
     
     return render(request, 'admin/dashboard.html', context)  
 
-# @login_required(login_url='sign-in')
-# @user_passes_test(is_admin, login_url='no-parmission')
+@login_required(login_url='sign-in')
+@user_passes_test(is_admin, login_url='no-parmission')
 def create_group(request):
     form = CreateGroupForm()
     
@@ -98,8 +93,8 @@ def create_group(request):
     return render(request, 'admin/create_group.html', {"form" : form, "gflag" : True})
 
 
-# @login_required(login_url='sign-in')
-# @user_passes_test(is_admin, login_url='no-parmission')
+@login_required(login_url='sign-in')
+@user_passes_test(is_admin, login_url='no-parmission')
 def update_group_data(request, group_id):
     
 
@@ -119,20 +114,20 @@ def update_group_data(request, group_id):
         }
     return render(request, 'admin/create_group.html', context)
 
-# @login_required(login_url='sign-in')
-# @user_passes_test(is_admin, login_url='no-parmission')
+@login_required(login_url='sign-in')
+@user_passes_test(is_admin, login_url='no-parmission')
 def view_group_update_list(request):
     groups = Group.objects.all()
     return render(request, 'admin/view_update_group_list.html', {"groups" : groups, "gflag" : True})
 
-# @login_required(login_url='sign-in')
-# @user_passes_test(is_admin, login_url='no-parmission')
+@login_required(login_url='sign-in')
+@user_passes_test(is_admin, login_url='no-parmission')
 def view_group(request):
     groups = Group.objects.all()
     return render(request, 'admin/view_group.html', {"groups" : groups, "gflag" : True})
 
-# @login_required(login_url='sign-in')
-# @user_passes_test(is_admin, login_url='no-parmission')
+@login_required(login_url='sign-in')
+@user_passes_test(is_admin, login_url='no-parmission')
 def change_role(request, user_id):
     user = User.objects.get(id = user_id)
     
@@ -152,8 +147,8 @@ def change_role(request, user_id):
 def check_user_id(user):
     return user.id 
 
-# @login_required(login_url='sign-in') 
-# @user_passes_test(is_participant, login_url='no-parmission')
+@login_required(login_url='sign-in') 
+@user_passes_test(is_participant, login_url='no-parmission')
 def participant_dashboard(request, ):
     
     user_id = check_user_id(request.user)
@@ -173,24 +168,24 @@ def participant_dashboard(request, ):
 
 # @login_required(login_url='sign-in')
 # @permission_required("events.view_participantmodel", login_url='no-parmission')
-def all_participant(request):
+# def all_participant(request):
     
-    events = EventModel.objects.prefetch_related('participant').all()
+#     events = EventModel.objects.prefetch_related('participant').all()
     
-        # count data
-    count = all_count()
+#         # count data
+#     count = all_count()
     
-    context = {
-        "events" : events,
-        "count" : count,
-    }
+#     context = {
+#         "events" : events,
+#         "count" : count,
+#     }
     
     
-    return render(request, 'admin/all_participant.html', context)
+#     return render(request, 'admin/all_participant.html', context)
 
 
-# @login_required(login_url='sign-in')
-# @permission_required("events.add_participantmodel", login_url='no-parmission')
+@login_required(login_url='sign-in')
+@permission_required("events.add_participantmodel", login_url='no-parmission')
 def create_participant(request):
     participant_form = CustomRegistrationForm()
     
@@ -213,8 +208,8 @@ def create_participant(request):
     return render(request, 'admin/create_participant.html', context)
 
 
-# @login_required(login_url='sign-in')
-# @permission_required("events.change_participantmodel", login_url='no-parmission')
+@login_required(login_url='sign-in')
+@permission_required("events.change_participantmodel", login_url='no-parmission')
 def update_participant(request, id):
     participant = get_object_or_404(User, id = id)
     
@@ -238,8 +233,8 @@ def update_participant(request, id):
     }
     return render(request, 'admin/update_participant.html', context)    
 
-# @login_required(login_url='sign-in')
-# @permission_required("events.delete_participantmodel", login_url='no-parmission')
+@login_required(login_url='sign-in')
+@permission_required("events.delete_participantmodel", login_url='no-parmission')
 def delete_participant(request, id):
     
     participant = User.objects.get(id = id)
@@ -249,14 +244,55 @@ def delete_participant(request, id):
     messages.success(request, "Participant Deleted Successfully .")
     return redirect('all-participant')
 
+@login_required(login_url='sign-in')
+@user_passes_test(is_organizer, login_url='no-parmission')
+def organizer_dashboard(request):
+    
+    count = all_count()
+   
+    
+    type = request.GET.get('type', 'all')
+    
+    date_now = datetime.date.today()
+   
 
-# @login_required(login_url='sign-in')
+    # fatch all task
+    base_query = EventModel.objects.all()
+    
+    if type == 'today':
+        events = base_query.filter(date = date_now)
+    elif type == 'upcoming':
+        events = base_query.filter(date__gt = date_now)
+    elif type == 'past':
+        events = base_query.filter(date__lt = date_now)
+    elif type == 'all':
+        events = base_query.all()
+    else:
+        events = base_query.filter(date = date_now)
+    
+    # show all category in option
+    
+    EVcategories = EventModel.objects.select_related('category').all()
+    oflag = is_organizer(request.user)
+    aeflag = is_admin(request.user)
+    
+    context ={
+        "count" : count,
+        "events" : events,
+        "EVcategories" : EVcategories,
+        "oflag": oflag,
+        "aeflag": aeflag,
+    }
+     
+    return render(request,'organizer/organizer_dashboard.html', context)
+
+@login_required(login_url='sign-in')
 def redirect_dashboard(request):
     
     if is_admin(request.user):
         return redirect('admin-dashboard')
     elif is_organizer(request.user):
-        return redirect('manager-dashboard')
+        return redirect('organizer-dashboard')
     elif is_participant(request.user):
         return redirect('participant-dashboard')
     return redirect('no-parmission')

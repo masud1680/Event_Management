@@ -10,7 +10,7 @@
     <!-- TOTAL PARTICIPANTS  -->
     <a href="{% url 'all-participant'%}">
       <div
-        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+        class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
       >
         <h3 class="text-sm font-medium dark:text-white mb-4">
           ALL PARTICIPANTS
@@ -29,9 +29,9 @@
       </div>
     </a>
     <!-- TODAY PARTICIPANTS -->
-    <a href="{% url 'manager-dashboard'%}?type=today">
+    <a href="{% url 'events-dashboard' %}?type=today">
       <div
-        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+        class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
       >
         <h3 class="text-sm font-medium dark:text-white mb-4">
           TODAY PARTICIPANTS
@@ -53,9 +53,9 @@
       </div>
     </a>
     <!--UPCOMING EVENTS-->
-    <a href="{% url 'manager-dashboard'%}?type=upcoming">
+    <a href="{% url 'events-dashboard' %}?type=upcoming">
       <div
-        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+        class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
       >
         <h3 class="text-sm font-medium dark:text-white mb-4">
           UPCOMMING EVENTS
@@ -79,7 +79,7 @@
     <!-- MANAGER -->
     <a href="{% url 'site-maintenance' %}?type=upcoming">
       <div
-        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+        class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
       >
         <h3 class="text-sm font-medium dark:text-white mb-4">MANAGER</h3>
         <div class="flex justify-between items-start">
@@ -102,7 +102,7 @@
     <!-- Admin -->
     <a href="{% url 'site-maintenance'  %}">
       <div
-        class="bg-stolen-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
+        class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm"
       >
         <h3 class="text-sm font-medium dark:text-white mb-4">ADMIN</h3>
         <div class="flex justify-between items-start">
