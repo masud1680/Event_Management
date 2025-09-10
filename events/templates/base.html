@@ -37,7 +37,7 @@
             >
             <a
               href="{% url 'site-maintenance' %}"
-              class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+              class="dark:text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
               >Get started</a
             >
             <button id="mobile-menu-2"
@@ -85,7 +85,7 @@
               <li>
                 <a
                   href="{% url 'manager-dashboard' %}"
-                  class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
+                  class="block py-2 pr-4 pl-3  rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                   aria-current="page"
                   >Home</a
                 >
@@ -183,14 +183,14 @@
     <!-- TOTAL EVENT  -->
     <a href="{% url 'manager-dashboard'%}?type=all">
 
-      <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
-      <h3 class="text-sm font-medium text-white mb-4">ALL EVENTS</h3>
+      <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium dark:text-white mb-4">ALL EVENTS</h3>
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-white text-3xl font-semibold mb-1">
+          <p class="dark:text-white text-3xl font-semibold mb-1">
             {{count.event}}
           </p>
-          <p class="text-white text-sm">1 last month</p>
+          <p class="dark:text-white text-sm">1 last month</p>
         </div>
         <div class="bg-green-100 p-3 rounded-full">
           <i
@@ -205,14 +205,14 @@
     </a>
     <!-- TODAY EVENTS -->
    <a href="{% url 'manager-dashboard'%}?type=today">
-     <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
-      <h3 class="text-sm font-medium text-white mb-4">TODAY EVENTS</h3>
+     <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium dark:text-white mb-4">TODAY EVENTS</h3>
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-white text-3xl font-semibold mb-1">
+          <p class="dark:text-white text-3xl font-semibold mb-1">
             {{count.today}}
           </p>
-          <p class="text-white text-sm">1 last month</p>
+          <p class="dark:text-white text-sm">1 last month</p>
         </div>
         <div class="bg-blue-100 p-4 rounded-full">
           <i
@@ -225,14 +225,14 @@
    </a>
     <!-- UPCOMING EVENTS -->
    <a href="{% url 'manager-dashboard'%}?type=upcoming">
-     <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
-      <h3 class="text-sm font-medium text-white mb-4">UPCOMING EVENTS</h3>
+     <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium dark:text-white mb-4">UPCOMING EVENTS</h3>
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-white text-3xl font-semibold mb-1">
+          <p class="dark:text-white text-3xl font-semibold mb-1">
             {{count.upcoming}}
           </p>
-          <p class="text-white text-sm">1 last month</p>
+          <p class="dark:text-white text-sm">1 last month</p>
         </div>
         <div class="bg-yellow-100 p-3 rounded-full">
           <i
@@ -246,14 +246,14 @@
 
     <!--PAST EVENTS-->
     <a href="{% url 'manager-dashboard'%}?type=past">
-      <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
-      <h3 class="text-sm font-medium text-white mb-4">PAST EVENTS</h3>
+      <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium dark:text-white mb-4">PAST EVENTS</h3>
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-white text-3xl font-semibold mb-1">
+          <p class="dark:text-white text-3xl font-semibold mb-1">
             {{count.past}}
           </p>
-          <p class="text-white text-sm">1 last month</p>
+          <p class="dark:text-white text-sm">1 last month</p>
         </div>
         <div class="bg-purple-100 p-3 rounded-full">
           <i
@@ -269,14 +269,14 @@
     <!-- Total PARTICIPANT -->
     <a href="{% url 'all-participant' %}">
 
-      <div class="bg-gray-50 hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
-      <h3 class="text-sm font-medium text-white mb-4">TOTAL PARTICIPANTS</h3>
+      <div class="bg-white hover:dark:bg-gray-600 dark:bg-gray-700 rounded-xl p-6 shadow-sm">
+      <h3 class="text-sm font-medium dark:text-white mb-4">TOTAL PARTICIPANTS</h3>
       <div class="flex justify-between items-start">
         <div>
-          <p class="text-white text-3xl font-semibold mb-1">
+          <p class="dark:text-white text-3xl font-semibold mb-1">
             {{count.participants}}
           </p>
-          <p class="text-white text-sm">1 last month</p>
+          <p class="dark:text-white text-sm">1 last month</p>
         </div>
         <div class="bg-blue-100 p-4 rounded-full">
           <i
