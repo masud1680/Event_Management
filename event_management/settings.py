@@ -169,4 +169,4 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
-FONTEND_URL = 'http://127.0.0.1:8000'
+FONTEND_URL = 'https://*.onrender.com'
