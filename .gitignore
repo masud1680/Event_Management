@@ -1,0 +1,7 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+task_env/
+__pycache__/
+*.sqlite3
+node_modules/
+.env
