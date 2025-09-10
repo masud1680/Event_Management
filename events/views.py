@@ -73,7 +73,7 @@ def manager_dashboard(request):
         "aeflag": aeflag,
     }
      
-    return render(request,'manager_dashboard.html', context)
+    return render(request,'manager/manager_dashboard.html', context)
 
 
 
