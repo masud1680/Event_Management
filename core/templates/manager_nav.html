@@ -1,4 +1,6 @@
-{% load static %}
+  {% load static %}
+      <!-- connect script.js -->
+    <script src="{% static 'js/script.js' %}"></script>
 <header class="mb-5 ">
 
       <nav
@@ -23,9 +25,9 @@
         {% csrf_token %}
         <button type="submit"  class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Logout</button>
     </form>
-            <button id="profileToggleBtn" 
+            <button id="mprofileToggleBtn" 
 
-              data-user-id=111
+              
               class=" cursor-pointer text-white rounded-lg ">
               <img class="w-8 h-8  rounded-full shadow-lg" src="{% static 'images/profile.png' %}" alt="Bonnie image"/>
               </button>
@@ -87,26 +89,21 @@
               class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
               >
               
-                  Add Event
+                  Add Event & Cetagory
                   
                   </a>
 
               </li>
               <li>
-                <a
-                  href="#"
-                  class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                  >Add Perticipants</a
-                >
-              </li>
-<!--              <li>
+                
+
+              {% comment %} <li>
                 <a
                   href="#"
                   class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >Add Cetagory</a
                 >
-              </li>
-              -->
+              </li> {% endcomment %}
 
 
               
@@ -163,3 +160,45 @@
         </div>
       </nav>
     </header>
+
+<!-- User Profile Card (hidden by default) -->
+<div id="mprofileCard" class=" absolute  right-5  hidden  w-full max-w-3xs mx-auto mt-15 md:mt-18 lg:mt-18 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+
+    <div class="flex flex-col items-center pb-10">
+        <img class="w-24 h-24 my-3 rounded-full shadow-lg" src="{% static 'images/profile.png' %}" alt="Bonnie image"/>
+         <h5  class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{request.user.first_name}} {{request.user.last_name}}</h5> 
+        <span class="text-sm text-gray-500 dark:text-gray-400">User ID: {{request.user.id}} <span id="popupUserId" class="font-bold"></span></span>
+        <div class="flex mt-4 md:mt-6">
+            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">View Profile</a>
+            
+        </div>
+    </div>
+</div>
+
+    <script>
+      // working for mobile menue
+const mobileBtn = document.getElementById("mobile-menu-2");
+
+
+mobileBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    
+    const mBtn = document.getElementById("mobile-menu");
+    mBtn.classList.toggle('hidden');
+    
+
+    // alert("Working......")
+});
+
+
+          // working for Manager profile
+  const managertoggleBtn = document.getElementById('mprofileToggleBtn');
+  const mcard = document.getElementById('mprofileCard');
+
+  managertoggleBtn.addEventListener('click', () => {
+    mcard.classList.toggle('hidden');
+
+  });
+
+    </script>
+

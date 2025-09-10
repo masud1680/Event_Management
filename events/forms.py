@@ -51,7 +51,7 @@ class StyledFormMixin:
 class EventModelForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = EventModel
-        fields = ['title', 'date', 'time', 'location',  'description' ]
+        fields = ['title', 'date', 'time', 'location', 'Easset', 'description' ]
         
         widgets = {
             'date': forms.SelectDateWidget(),
@@ -68,7 +68,7 @@ class EventModelForm(StyledFormMixin, forms.ModelForm):
 class categoryModelForm(StyledFormMixin, forms.ModelForm):
     class Meta:
         model = CategoryModel   
-        fields = ['name', 'description'] 
+        fields = ['name', 'Casset', 'description'] 
         
         
 

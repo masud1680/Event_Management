@@ -182,15 +182,26 @@ def view_event_details(request, id):
 def all_participant(request):
     
     events = EventModel.objects.prefetch_related('Participant').all()
+    # participants = User.objects.prefetch_related('eventP').all()
+    
+    participant_list = []
+    
+    for event in events:
+        for par in event.Participant.all():
+            if par not in participant_list:
+                participant_list.append(par)
+            
+            
     
         # count data
     count = all_count()
     
     context = {
         "events" : events,
+        "participant_list" : participant_list,
         "count" : count,
     }
-    print("working........")
+    
     return render(request, 'all_participant.html', context)
 
 def view_event_category(request, id):
@@ -290,17 +301,19 @@ def register_event(request, user_id, event_id):
     registered_events = user.eventP.all()
     
     flag = False
+    
     for revent in registered_events:
         if revent.id == event_id:
             flag = True
+            
         
     if flag == True:    
-        messages.warning(request, "Event {{event.title}} already registered.")
+        messages.warning(request, "Event  already registered.")
     else:
         event = EventModel.objects.get(id = event_id)
         event.Participant.add(user)
-        messages.success(request, "Event {{event.title}} added Successfull.")
-        send_rEmail(user,event)      
+        messages.success(request, "Event  added Successfull.")
+        send_rEmail(user, event)      
     return redirect('redirect-dashboard')
 
 # send_email_when_register_evant

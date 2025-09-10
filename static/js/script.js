@@ -4,19 +4,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-// working for mobile menue
-const mobileBtn = document.getElementById("mobile-menu-2");
 
 
-mobileBtn.addEventListener("click", (e)=>{
-    e.preventDefault();
-    
-    const mBtn = document.getElementById("mobile-menu");
-    mBtn.classList.toggle('hidden');
-    
 
-    // alert("Working......")
-});
 
 // working for participant see all events or my events
 
@@ -45,20 +35,26 @@ allEventbtn.addEventListener("click", (e)=>{
 });
 
 
-// working for participant profile
+
+  // working for participant profile
   const toggleBtn = document.getElementById('profileToggleBtn');
   const card = document.getElementById('profileCard');
 
   toggleBtn.addEventListener('click', () => {
     card.classList.toggle('hidden');
-    let userFullName = document.getElementById("user-full-name").innerText;
-    document.getElementById("userFullNameValue").innerText = userFullName;
 
   });
 
 
 
+
+
+
+
 });
+
+
+
 
 
 

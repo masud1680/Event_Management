@@ -148,12 +148,34 @@
           </div>
         </div>
       </nav>
+
+
     </header>
     {% else %}
     {% include "non_login_nav.html" %}
     
     
     {% endif %}
+
+
+    <script>
+      // working for mobile menue
+const mobileBtn = document.getElementById("mobile-menu-2");
+
+
+mobileBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    
+    const mBtn = document.getElementById("mobile-menu");
+    mBtn.classList.toggle('hidden');
+    
+
+    // alert("Working......")
+});
+
+    </script>
+
+
 
 
 

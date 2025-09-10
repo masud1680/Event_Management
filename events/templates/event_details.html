@@ -25,7 +25,7 @@
 
   <div class=" bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row lg:max-w-6xl md:max-w-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
   <a href="#" >
-    <img class="object-cover w-full rounded-t-lg sm:h-96 md:h-auto sm:w-full lg:w-full md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/event-category.jpg' %}" alt="">
+    <img class="object-cover w-full rounded-t-lg sm:h-96 md:h-auto sm:w-full lg:w-full md:w-48 md:rounded-none md:rounded-s-lg" src="{{ events.Easset.url }}" alt="">
     <div class="flex flex-col justify-between p-4 leading-normal">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{events.title}}</h5>
 <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2">        <b class="mb-3 font-normal text-gray-700 dark:text-amber-100 ">Date : {{events.date}} | Time : {{events.time}}</b>
@@ -60,7 +60,7 @@
 
   <div class=" bg-white border border-gray-200 rounded-lg shadow-sm md:flex-row lg:max-w-6xl md:max-w-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
   <a href="#" >
-    <img class="object-cover w-full rounded-t-lg sm:h-96 md:h-auto sm:w-full lg:w-full md:w-48 md:rounded-none md:rounded-s-lg" src="{% static 'images/event-category.jpg' %}" alt="">
+    <img class="object-cover w-full rounded-t-lg sm:h-96 md:h-auto sm:w-full lg:w-full md:w-48 md:rounded-none md:rounded-s-lg" src="{{ events.category.Casset.url }}" alt="">
     <div class="flex flex-col justify-between p-4 leading-normal">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{events.category.name}}</h5>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{events.category.description}}</p>

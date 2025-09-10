@@ -3,20 +3,26 @@
 
 
 
-<!-- User Profile Card (hidden by default) -->
+          <!-- User Profile Card (hidden by default) -->
 
 <div id="profileCard" class=" absolute  right-5  hidden  w-full max-w-3xs mx-auto mt-15 md:mt-18 lg:mt-18 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
 
     <div class="flex flex-col items-center pb-10">
         <img class="w-24 h-24 my-3 rounded-full shadow-lg" src="{% static 'images/profile.png' %}" alt="Bonnie image"/>
-         <h5 id="userFullNameValue" class="mb-1 text-xl font-medium text-gray-900 dark:text-white"></h5> 
-        <span class="text-sm text-gray-500 dark:text-gray-400">User ID: <span id="popupUserId" class="font-bold"></span></span>
+         <h5  class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{{request.user.first_name}} {{request.user.last_name}}</h5> 
+        <span class="text-sm text-gray-500 dark:text-gray-400">User ID: {{request.user.id}} <span id="popupUserId" class="font-bold"></span></span>
         <div class="flex mt-4 md:mt-6">
             <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">View Profile</a>
             
         </div>
     </div>
 </div>
+
+
+
+
+
+
 
 
      
