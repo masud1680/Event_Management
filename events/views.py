@@ -169,7 +169,7 @@ def delete_event(request, id):
     else:
         messages.success(request, "Something went wrong.")
     
-    return redirect('manager-dashboard')
+    return redirect('organizer-dashboard')
 
 def view_event_details(request, id):
     # Fetch the event and prefetch participants
