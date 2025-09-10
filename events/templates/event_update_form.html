@@ -8,12 +8,12 @@
 
 
 
-    <form method='POST' action="{% url 'update-event' event.id %}">
-{% csrf_token %}
+    <form method='POST' action="{% url 'update-event' event.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
         {{event_form.as_p}}
         {{category_form.as_p}}
 
-        <button type="submit" class="bg-sky-500 px-5 py-2 rounded-md">Submit</button>
+        <button type="submit" class="bg-sky-500 px-5 py-2 rounded-md" > Submit </button>
     </form>
 
 </div>

@@ -82,8 +82,8 @@ def create_event(request):
     
     
     if request.method == 'POST':
-        event_form = EventModelForm(request.POST)
-        category_form = categoryModelForm(request.POST)
+        event_form = EventModelForm(request.POST, request.FILES,)
+        category_form = categoryModelForm(request.POST, request.FILES,)
         
         if event_form.is_valid() and category_form.is_valid():
             """Form to Model to database save"""
@@ -120,8 +120,8 @@ def update_event(request, id):
     
     
     if request.method == 'POST':
-        event_form = EventModelForm(request.POST, instance = event)
-        category_form = categoryModelForm(request.POST, instance = event.category)
+        event_form = EventModelForm(request.POST, request.FILES, instance = event)
+        category_form = categoryModelForm(request.POST, request.FILES, instance = event.category)
         
         if event_form.is_valid() and category_form.is_valid():
             category = category_form.save()

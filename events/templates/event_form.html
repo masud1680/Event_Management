@@ -12,7 +12,7 @@
                 {% endfor %}
             {% endif %}
         </div> 
-        <form method='POST' action= {% url 'create-event'  %}>
+        <form method='POST' action= {% url 'create-event'  %} enctype="multipart/form-data" >
             {% csrf_token %}
 
             {{event_form.as_p}}
