@@ -9,46 +9,97 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from events.models import EventModel
 import datetime
 
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView, TemplateView, FormView
+from django.core.exceptions import ImproperlyConfigured
 
 # Create your views here.
-def sign_up(request):
+# def sign_up(request):
     
-    form = CustomRegistrationForm()
+#     form = CustomRegistrationForm()
     
-    if request.method == 'POST':
-        form = CustomRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data.get('password'))
-            user.is_active = False
+#     if request.method == 'POST':
+#         form = CustomRegistrationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.set_password(form.cleaned_data.get('password'))
+#             user.is_active = False
             
-            form.save()
-            messages.success(request, 'Registration Successful. \n\n A varification mail send on your email.')
-            return redirect('sign-in')
-        else:
-            messages.warning(request, "Registration Unsuccessfull!!")
+#             form.save()
+#             messages.success(request, 'Registration Successful. \n\n A varification mail send on your email.')
+#             return redirect('sign-in')
+#         else:
+#             messages.warning(request, "Registration Unsuccessfull!!")
     
-    return render(request, 'users_form/registration.html', {"form" : form})
+#     return render(request, 'users_form/registration.html', {"form" : form})
 
-def sign_in(request):
-    form = CustomLoginForm()
+class SignUpView(FormView):
+    template_name = 'users_form/registration.html'
+    form_class = CustomRegistrationForm
+    success_url = reverse_lazy('sign-in')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data.get('password'))
+        user.is_active = False
+            
+        form.save()
+        messages.success(self.request, 'Registration Successful. \n\n A varification mail send on your email.')
+        return super().form_valid(form)
     
-    if request.method == 'POST':
-        form = CustomLoginForm(data = request.POST)
+    def form_invalid(self, form):
+        messages.warning(self.request, "Registration Unsuccessfull!!")
+        response = super().form_invalid(form)
+        return response
+    
+    
+    
+    
         
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            messages.success(request,'Login Successfull.')
-            return redirect('redirect-dashboard')
-    return render(request, 'users_form/login.html', {"form" : form})
+    
+    
 
-@login_required(login_url='sign-in')
-def sign_out(request):
-    if request.method == 'POST':
-        logout(request)
+
+# def sign_in(request):
+#     form = CustomLoginForm()
+    
+#     if request.method == 'POST':
+#         form = CustomLoginForm(data = request.POST)
         
-    return redirect('home')
+#         if form.is_valid():
+#             user = form.get_user()
+#             login(request, user)
+#             messages.success(request,'Login Successfull.')
+#             return redirect('redirect-dashboard')
+#     return render(request, 'users_form/login.html', {"form" : form})
+
+class SignInView(LoginView):
+    template_name = 'users_form/login.html'
+    form_class = CustomLoginForm
+    success_url = reverse_lazy('redirect-dashboard')
+
+    def get_success_url(self):
+        return self.success_url or self.get_default_redirect_url()
+
+
+# @login_required(login_url='sign-in')
+# def sign_out(request):
+#     if request.method == 'POST':
+#         logout(request)
+        
+#     return redirect('home')
+
+class SignOut(LoginRequiredMixin, LogoutView):
+    login_url = 'sign-in'
+    
+    def post(self, request, *args, **kwargs):
+        logout(self.request)
+
+        return redirect('home')
+
 
 def active_account(request, user_id, token):
     try:
@@ -64,33 +115,64 @@ def active_account(request, user_id, token):
             
     return redirect('sign-in')
     
-@user_passes_test(is_admin, login_url='no-parmission')
-def admin_dashboard(request):
-    users = User.objects.all()
+# @user_passes_test(is_admin, login_url='no-parmission')
+# def admin_dashboard(request):
+#     users = User.objects.all()
     
-    aflag = is_admin(request.user)
+#     aflag = is_admin(request.user)
     
-    count = all_count()
-    context ={
-        "users" : users,
-        "count" : count,
-        "aflag" : aflag,
-        }
+#     count = all_count()
+#     context ={
+#         "users" : users,
+#         "count" : count,
+#         "aflag" : aflag,
+#         }
     
-    return render(request, 'admin/dashboard.html', context)  
+#     return render(request, 'admin/dashboard.html', context) 
+ 
+@method_decorator(user_passes_test(is_admin, login_url="no-permission"), name='dispatch')
+class AdminDashboard(TemplateView):
+    template_name = 'admin/dashboard.html'
 
-@login_required(login_url='sign-in')
-@user_passes_test(is_admin, login_url='no-parmission')
-def create_group(request):
-    form = CreateGroupForm()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["aflag"] = is_admin(self.request.user)
+        context["count"] = all_count()
+        context["users"] = User.objects.all()
+        return context
     
-    if request.method == 'POST':
+
+# @login_required(login_url='sign-in')
+# @user_passes_test(is_admin, login_url='no-parmission')
+# def create_group(request):
+#     form = CreateGroupForm()
+    
+#     if request.method == 'POST':
+#         form = CreateGroupForm(request.POST)
+#         group = form.save()
+#         messages.success(request, f"{group.name} Role assign Successfull.")
+#         return redirect('create-group')
+    
+#     return render(request, 'admin/create_group.html', {"form" : form, "gflag" : True})
+
+
+@method_decorator(user_passes_test(is_admin, login_url="no-permission"), name='dispatch')
+class CreateGroup(LoginRequiredMixin, CreateView):
+    login_url = 'sign-in'
+    template_name = 'admin/create_group.html'
+    form_class = CreateGroupForm
+
+    def post(self, request, *args, **kwargs):
         form = CreateGroupForm(request.POST)
         group = form.save()
         messages.success(request, f"{group.name} Role assign Successfull.")
         return redirect('create-group')
     
-    return render(request, 'admin/create_group.html', {"form" : form, "gflag" : True})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["gflag"] = True
+        return context
+    
 
 
 @login_required(login_url='sign-in')
