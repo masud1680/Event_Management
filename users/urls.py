@@ -2,8 +2,9 @@
 
 from django.urls import path
 # from users.views import sign_up, sign_in, sign_out, active_account,admin_dashboard, create_group, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
-from users.views import SignUpView, SignInView, SignOut, active_account, AdminDashboard, CreateGroup, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
+from users.views import SignUpView, SignInView, SignOut, ProfileView, EditProfileView, CustomePasswordChangeView, CustomePasswordResetView, active_account, AdminDashboard, CreateGroup, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import PasswordChangeDoneView
 urlpatterns = [
     
 #     path('sign-up/', sign_up, name='sign-up'),
@@ -13,20 +14,11 @@ urlpatterns = [
 #     path('sign-out/', sign_out, name='sign-out'),
     path('sign-out/', SignOut.as_view(), name='sign-out'),
     path('activate/<int:user_id>/<str:token>/', active_account , ),
-    path("password-reset/", 
-         auth_views.PasswordResetView.as_view(
-             template_name="registration/password_reset_form.html"
-             
-             ), 
-         name="password_reset"),
+    path("password-reset/", CustomePasswordResetView.as_view(  ), name="reset-password"),
 
-    path("password-reset/done/", 
-         auth_views.PasswordResetDoneView.as_view(), 
-         name="password_reset_done"),
+    path("password-reset/done/", CustomePasswordResetView.as_view(template_name = 'registration/custome_password_reset_done.html'),  name="password_reset_done"),
 
-    path("reset/<uidb64>/<token>/", 
-         auth_views.PasswordResetConfirmView.as_view(), 
-         name="password_reset_confirm"),
+    path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
 
     path("reset/done/", 
          auth_views.PasswordResetCompleteView.as_view(), 
@@ -45,4 +37,9 @@ urlpatterns = [
     path('create-participant/', create_participant, name='create-participant'),
     path('update-participant/<int:id>', update_participant, name='update-participant'),
     path('delete-participant/<int:id>', delete_participant, name='delete-participant'),
+
+
+    path('profile/', ProfileView.as_view(), name="view-profile"),
+    path('edit-profile/', EditProfileView.as_view(), name="edit-profile"),
+    path('change-password/', CustomePasswordChangeView.as_view(), name="change-password"),
 ]

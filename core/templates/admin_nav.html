@@ -20,7 +20,7 @@
           <div class="flex items-center lg:order-2">
 
 
-                <form action='{% url 'sign-out' %}' method="POST">
+                <form action="{% url 'sign-out' %}" method="POST">
         {% csrf_token %}
         <button type="submit"  class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Logout</button>
     </form>
@@ -29,6 +29,7 @@
               
               class=" cursor-pointer text-white rounded-lg ">
               <img class="w-8 h-8  rounded-full shadow-lg" src="{% static 'images/profile.png' %}" alt="Bonnie image"/>
+              {% comment %} <img class="w-8 h-8  rounded-full shadow-lg" src="{{profile_image}}" alt="Bonnie image"/> {% endcomment %}
               </button>
 
             <button id="mobile-menu-2"
@@ -174,7 +175,7 @@
          <h5  class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{% if request.user.first_name %} {{request.user.first_name}} {{request.user.last_name}} {% else %} {{request.user.username}} {% endif %}</h5> 
         <span class="text-sm text-gray-500 dark:text-gray-400">User ID: {{request.user.id}} <span id="popupUserId" class="font-bold"></span></span>
         <div class="flex mt-4 md:mt-6">
-            <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">View Profile</a>
+            <a href="{% url 'view-profile' %}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">View Profile</a>
             
         </div>
     </div>

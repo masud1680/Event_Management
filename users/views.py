@@ -1,20 +1,26 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from users.forms import CustomRegistrationForm, CustomLoginForm, CreateGroupForm,GroupUpdateSelectForm, AssignRoleForm, CustomUserUpdateForm
+from users.forms import CustomRegistrationForm, CustomLoginForm, CreateGroupForm,  GroupUpdateSelectForm, AssignRoleForm, CustomUserUpdateForm, EditProfileForm, PasswordChangeForm, PasswordResetForm
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import  Group
 from django.contrib.auth.tokens import default_token_generator
 from events.views import all_count, is_organizer, is_admin, is_participant
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from events.models import EventModel
 import datetime
 
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, TemplateView, FormView
+from django.views.generic import CreateView, TemplateView, FormView, TemplateView, UpdateView
 from django.core.exceptions import ImproperlyConfigured
+
+from django.contrib.auth import get_user_model
+
+
+
+User = get_user_model()
 
 # Create your views here.
 # def sign_up(request):
@@ -134,11 +140,14 @@ def active_account(request, user_id, token):
 class AdminDashboard(TemplateView):
     template_name = 'admin/dashboard.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self,  **kwargs):
         context = super().get_context_data(**kwargs)
         context["aflag"] = is_admin(self.request.user)
         context["count"] = all_count()
         context["users"] = User.objects.all()
+        user = self.request.user
+        print(user.username)
+        context['profile_image'] = user.profile_image
         return context
     
 
@@ -378,3 +387,59 @@ def redirect_dashboard(request):
     elif is_participant(request.user):
         return redirect('participant-dashboard')
     return redirect('no-parmission')
+
+
+
+# profile section working start
+
+class ProfileView(TemplateView):
+    template_name = 'profile/view_profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+
+        context['username'] = user.username
+        context['name'] = user.get_full_name()
+        context['email'] = user.email
+        context['status'] = user.is_active
+        context['gender'] = user.gender
+        context['age'] = user.age
+        context['profile_image'] = user.profile_image
+        context['phone'] = user.phone
+        context['blood_group'] = user.blood_group
+        context['bio'] = user.bio
+        context['description'] = user.description
+        context['address'] = user.address
+        context['member_since'] = user.date_joined
+        context['last_login'] = user.last_login
+        return context
+
+
+
+
+class EditProfileView(UpdateView):
+    model = User
+    form_class = EditProfileForm
+    template_name = 'profile/edit_profile.html'
+    context_object_name = 'form'
+
+    def get_object(self):
+        return self.request.user
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('view-profile')
+    
+
+
+class CustomePasswordChangeView(PasswordChangeView):
+    template_name = 'registration/custome_password_change_form.html'
+    success_url = reverse_lazy('view-profile')
+    form_class = PasswordChangeForm
+
+class CustomePasswordResetView(PasswordResetView):
+    template_name = 'registration/custome_password_reset_form.html'
+    form_class = PasswordResetForm
+
+

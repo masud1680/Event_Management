@@ -5,11 +5,14 @@ from datetime import date, time
 from django.db.models import Q, Count, Max, Min, Avg
 import datetime
 from django.contrib import messages
-from django.contrib.auth.models import User
+
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 def is_organizer(user):
     return user.groups.filter(name="Organizer").exists()
@@ -69,7 +72,7 @@ def events_dashboard(request):
     EVcategories = EventModel.objects.select_related('category').all()
     oflag = is_organizer(request.user)
     aeflag = is_admin(request.user)
-    
+    profile_image = request.user.profile_image
     context ={
         "count" : count,
         "events" : events,
