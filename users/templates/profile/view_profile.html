@@ -1,0 +1,264 @@
+{% extends "base.html" %} 
+{% block title %}Profile{% endblock title %} 
+
+{% load static %} 
+
+{% block content %}
+
+        <!--++++++++++ using for profile view start-->
+
+        <!-- Profile view -->
+        <section id="profileView" class="content-section" data-aos="fade-up">
+          <div
+            class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl shadow-xl rounded-2xl p-8 grid gap-8 grid-cols-1 md:grid-cols-3 transition-all duration-300"
+          >
+            <!-- Left: Avatar -->
+            <section
+              class="md:col-span-1 flex flex-col  gap-6 p-6 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-700/20 dark:to-purple-700/20 rounded-2xl shadow-lg border border-white/10"
+            >
+       <div class="flex sm:flex-1 flex-2 h-1/2 items-center">       
+         <div class="relative w-36 h-36 sm:w-40 sm:h-40">
+                <img
+                  id="viewAvatar"
+                  src="{{profile_image.url}}"
+                  alt="avatar"
+                  class="w-full h-full rounded-full object-cover border-4 border-white shadow-md"
+                />
+              </div>
+
+              <div class="text-center w-1/2 items-center ">
+                <p
+                  id="profileName"
+                  class="text-xl font-semibold text-gray-800 dark:text-gray-100"
+                >
+                  {{username}}
+                </p>
+                <p                
+                  class="text-sm text-gray-500 dark:text-gray-300"
+                >
+                  {{bio}}
+                </p>
+              </div>
+             </div>
+
+<div class="flex lg:flex-3 md:flex-3 sm:flex-1 justify-between h-1/2 items-center"> 
+                 <a href="{% url 'edit-profile' %}">
+                <button
+                  class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition"
+                >
+                  Edit Profile
+                </button>
+              </a>
+              <a href="{% url 'change-password' %}">
+                <button
+                  class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition"
+                >
+                  Change Password
+                </button>
+              </a>
+              <a href="{% url 'reset-password' %}" >
+                <button
+                  class="rounded-lg bg-indigo-600 px-4 py-2 font-medium text-white hover:bg-indigo-700 transition"
+                >
+                  Forget Password
+                </button>
+              </a>
+            </div>
+            </section>
+
+            <!-- Right: Details text instead of inputs -->
+            <section class="md:col-span-2 grid gap-6">
+                <h1 class="font-extrabold text-xl ">Personal Information</h1>
+              <!-- Row 1 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Full Name
+                  </p>
+                  <p
+                    id="profileFullName"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    {{name}}
+                  </p>
+                </div>
+               
+
+              </div>
+              <!-- Row 2 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Phone
+                  </p>
+                  <p
+                    id="profilePhone"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                   {{phone}}
+                  </p>
+                </div>
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Email
+                  </p>
+                  <p
+                    id="profileEmail"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    {{email}}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                 <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Blood Group
+                  </p>
+                  <p
+                    id="profileBloodGroup2"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    {{blood_group}}
+                  </p>
+                </div> 
+
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                     Status
+                  </p>
+                  <p
+                    id="profilePescriptionStatus"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    {{status}}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Gender
+                  </p>
+                  <p
+                    id="profileGender"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    {{gender}}
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Age
+                  </p>
+                  <p
+                    id="profileAge"
+                    class="mt-1 text-gray-600 dark:text-gray-300"
+                  >
+                    {{age}}
+                  </p>
+                </div>
+                
+              </div>
+
+              <!-- Address -->
+              <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Address
+                </p>
+                <p
+                  class="mt-1 text-gray-600 dark:text-gray-300"
+                >
+                  {{address}}
+                </p>
+              </div>
+
+              <!-- Bio -->
+              <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Description
+                </p>
+                <p
+                  id="profileShortBio"
+                  class="mt-1 text-gray-600 dark:text-gray-300 leading-relaxed"
+                >
+                  {{description}}
+                </p>
+              </div>
+
+<h1 class="font-extrabold text-xl ">Account Information</h1>
+
+                         <!-- Row 6 -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+
+                <div class="flex flex-2 gap-2">
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Member Since : 
+                  </p>
+                  <p
+                    id="profilePhone"
+                    class=" text-gray-600 dark:text-gray-300"
+                  >
+                  {{member_since}}
+                  </p>
+                </div>
+
+                <div class="flex flex-2 gap-2">
+                  <p
+                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                  >
+                    Last Login :
+                  </p>
+                  <p
+                    id="profileEmail"
+                    class=" text-gray-600 dark:text-gray-300"
+                  >
+                    {{last_login}}
+                  </p>
+                </div>
+              </div>
+
+                            <!-- Stats -->
+              <div class="flex gap-6 mt-4">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Followers:</span> 2.5k
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Articles:</span> 13
+                </p>
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                  <span class="font-medium">Papers:</span> 7
+                </p>
+              </div>
+
+            </section>
+          </div>
+
+       
+
+        </section>
+
+
+
+{% endblock content %}

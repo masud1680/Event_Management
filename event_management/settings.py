@@ -31,6 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com', 'http://127.0.0.1:8000']
 
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Application definition
 
@@ -96,24 +97,24 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 # Postgres database connect to jango
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT')
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DB_NAME'),
+#         'USER': config('DB_USER'),
+#         'PASSWORD': config('DB_PASSWORD'),
+#         'HOST': config('DB_HOST'),
+#         'PORT': config('DB_PORT')
+#     }
+# }
 
 # Online Onrender.com pg database connect
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=config('ONLINE_DB'),
-#         conn_max_age=600
-#     )
-# }
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('ONLINE_DB'),
+        conn_max_age=600
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -169,5 +170,5 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
-# FONTEND_URL = 'https://event-management-2-hwd7.onrender.com'
-FONTEND_URL = "http://127.0.0.1:8000"
+FONTEND_URL = 'https://event-management-mid-exam.onrender.com'
+# FONTEND_URL = "http://127.0.0.1:8000"
