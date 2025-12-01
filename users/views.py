@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from events.models import EventModel
 import datetime
 
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordResetView, PasswordResetCompleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.utils.decorators import method_decorator
@@ -442,4 +442,6 @@ class CustomePasswordResetView(PasswordResetView):
     template_name = 'registration/custome_password_reset_form.html'
     form_class = PasswordResetForm
 
+class CustomePasswordResetCompleteView(PasswordResetCompleteView):
+             template_name = "registration/custome_password_reset_complete.html"
 

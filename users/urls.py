@@ -2,7 +2,7 @@
 
 from django.urls import path
 # from users.views import sign_up, sign_in, sign_out, active_account,admin_dashboard, create_group, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
-from users.views import SignUpView, SignInView, SignOut, ProfileView, EditProfileView, CustomePasswordChangeView, CustomePasswordResetView, active_account, AdminDashboard, CreateGroup, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
+from users.views import SignUpView, SignInView, SignOut, ProfileView, EditProfileView, CustomePasswordChangeView, CustomePasswordResetView,CustomePasswordResetCompleteView,active_account, AdminDashboard, CreateGroup, view_group,view_group_update_list, update_group_data, change_role, participant_dashboard, create_participant, update_participant, delete_participant, redirect_dashboard, organizer_dashboard 
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import PasswordChangeDoneView
 urlpatterns = [
@@ -20,9 +20,7 @@ urlpatterns = [
 
     path("reset/<uidb64>/<token>/", auth_views.PasswordResetConfirmView.as_view(), name="password_reset_confirm"),
 
-    path("reset/done/", 
-         auth_views.PasswordResetCompleteView.as_view(), 
-         name="password_reset_complete"),
+    path("reset/done/", CustomePasswordResetCompleteView.as_view(), name="password_reset_complete"),
 #     path('admin/dashboard/', admin_dashboard, name='admin-dashboard'),
     path('admin/dashboard/', AdminDashboard.as_view(), name='admin-dashboard'),
     path('redirect-dashboard/', redirect_dashboard, name='redirect-dashboard'),

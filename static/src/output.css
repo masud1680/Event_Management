@@ -73,10 +73,7 @@
     --color-gray-950: oklch(13% 0.028 261.692);
     --color-neutral-200: oklch(92.2% 0 0);
     --color-neutral-700: oklch(37.1% 0 0);
-    --color-neutral-900: oklch(20.5% 0 0);
     --color-stone-50: oklch(98.5% 0.001 106.423);
-    --color-stone-200: oklch(92.3% 0.003 48.717);
-    --color-stone-300: oklch(86.9% 0.005 56.366);
     --color-stone-400: oklch(70.9% 0.01 56.259);
     --color-black: #000;
     --color-white: #fff;
@@ -405,6 +402,9 @@
   .my-10 {
     margin-block: calc(var(--spacing) * 10);
   }
+  .my-auto {
+    margin-block: auto;
+  }
   .ms-2 {
     margin-inline-start: calc(var(--spacing) * 2);
   }
@@ -612,6 +612,9 @@
   .w-3\/4 {
     width: calc(3/4 * 100%);
   }
+  .w-3xl {
+    width: var(--container-3xl);
+  }
   .w-4 {
     width: calc(var(--spacing) * 4);
   }
@@ -648,11 +651,17 @@
   .w-80 {
     width: calc(var(--spacing) * 80);
   }
+  .w-100 {
+    width: calc(var(--spacing) * 100);
+  }
   .w-\[50px\] {
     width: 50px;
   }
   .w-\[85\%\] {
     width: 85%;
+  }
+  .w-auto {
+    width: auto;
   }
   .w-full {
     width: 100%;
@@ -744,23 +753,14 @@
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
   .flex-col {
     flex-direction: column;
   }
   .flex-wrap {
     flex-wrap: wrap;
   }
-  .place-content-between {
-    place-content: space-between;
-  }
   .place-items-center {
     place-items: center;
-  }
-  .content-between {
-    align-content: space-between;
   }
   .items-center {
     align-items: center;
@@ -1443,9 +1443,6 @@
   .uppercase {
     text-transform: uppercase;
   }
-  .font-stretch-125\% {
-    font-stretch: 125%;
-  }
   .underline {
     text-decoration-line: underline;
   }
@@ -2084,6 +2081,11 @@
       width: calc(2/3 * 100%);
     }
   }
+  .md\:w-4xl {
+    @media (width >= 48rem) {
+      width: var(--container-4xl);
+    }
+  }
   .md\:w-48 {
     @media (width >= 48rem) {
       width: calc(var(--spacing) * 48);
@@ -2221,6 +2223,11 @@
   .lg\:w-4\/12 {
     @media (width >= 64rem) {
       width: calc(4/12 * 100%);
+    }
+  }
+  .lg\:w-6xl {
+    @media (width >= 64rem) {
+      width: var(--container-6xl);
     }
   }
   .lg\:w-8\/12 {
@@ -2542,11 +2549,6 @@
   .dark\:text-gray-900 {
     @media (prefers-color-scheme: dark) {
       color: var(--color-gray-900);
-    }
-  }
-  .dark\:text-red-50 {
-    @media (prefers-color-scheme: dark) {
-      color: var(--color-red-50);
     }
   }
   .dark\:text-white {
