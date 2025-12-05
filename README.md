@@ -1,4 +1,3 @@
-Live link : [https://event-management-2-hwd7.onrender.com/](https://event-management-mid-exam.onrender.com/)
-Admin 
+Live link :  https://event-management-mid-exam.onrender.com/ 
 Username : Admin 
 Password : 12345678
